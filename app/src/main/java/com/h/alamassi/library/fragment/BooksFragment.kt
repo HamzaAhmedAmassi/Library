@@ -28,7 +28,7 @@ class BooksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categoryId = arguments?.getLong("category_id") ?: -1
+         val categoryId = arguments?.getLong("category_id") ?: -1
 
         // TODO: 12/24/2021 Init databaseHelper object
         databaseHelper = DatabaseHelper(requireContext())

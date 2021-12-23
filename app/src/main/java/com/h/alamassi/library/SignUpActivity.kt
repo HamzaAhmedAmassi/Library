@@ -72,8 +72,10 @@ class SignUpActivity : AppCompatActivity() {
         val username = sinUpBinding.txtUserName.text.toString()
         val password = sinUpBinding.txtPassword.text.toString()
         if (username.isNotEmpty() && password.isNotEmpty()) {
-//            val image = sinUpBinding.ivUserPhoto.setImageURI()
-//            imageURI = image.toString()
+            var image = imageURI
+            if (image == null){
+                image = R.drawable.ic_baseline_person_24.toString()
+            }
 
 
 //            fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -86,8 +88,12 @@ class SignUpActivity : AppCompatActivity() {
             val result = databaseHelper.createUser(newUser)
             if (result != -1L) {
                 Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putString("user_image",image)
+                bundle.putString("user_name",username)
+                bundle.putString("user_password",password)
                 //Move to MainActivity
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java),bundle)
                 //Change isLogin in SP to true
                 SharedPreferenceHelper.getInstance(this)
                     ?.setInt("currentUserId", result.toInt())

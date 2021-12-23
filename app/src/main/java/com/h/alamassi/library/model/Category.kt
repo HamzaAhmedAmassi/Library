@@ -1,6 +1,6 @@
 package com.h.alamassi.library.model
 
-class Category(var name: String, var image: String) {
+class Category(var name: String, var image: String?) {
     var id: Int? = null
 
     companion object {

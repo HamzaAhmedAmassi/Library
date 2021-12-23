@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.h.alamassi.library.R
 import com.h.alamassi.library.databinding.FragmentBookEditBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
 import com.h.alamassi.library.model.Book
@@ -24,7 +25,8 @@ class BookEditFragment : Fragment() {
     lateinit var databaseHelper: DatabaseHelper
     var bookId: Long = -1L
     var categoryId: Long = -1L
-    private var imageURI: String = ""
+    private var imageURI: String? = null
+    var bookImage: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,8 +38,12 @@ class BookEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bookId = arguments?.getLong("book_id") ?: -1
-        categoryId = arguments?.getLong("category_id") ?: -1
+        bookId = arguments?.getLong("book_id", -1)!!
+        categoryId = arguments?.getLong("category_id", -1)!!
+        bookImage = arguments?.getString(
+            "book_image",
+            R.drawable.ic_baseline_menu_book_24.toString()
+        )
         bookEditBinding.btnSaveBook.setOnClickListener {
             updateBooks()
         }
@@ -62,19 +68,26 @@ class BookEditFragment : Fragment() {
             val pages = bookEditBinding.txtPages.toString()
             val copies = bookEditBinding.txtCopies.toString()
             val shelf = bookEditBinding.txtShelf.toString()
+
+            var image: String = bookEditBinding.ivBookImage.toString()
+            if (image == null) {
+                image = bookImage!!
+            } else {
+                image = imageURI!!
+            }
             databaseHelper.updateBook(
-                    Book(
-                        name,
-                        author,
-                        year,
-                        categoryId,
-                        description,
-                        language,
-                        pages,
-                        copies,
-                        shelf, imageURI
-                    )
+                Book(
+                    name,
+                    author,
+                    year,
+                    categoryId,
+                    description,
+                    language,
+                    pages,
+                    copies,
+                    shelf, image
                 )
+            )
         }
     }
 
