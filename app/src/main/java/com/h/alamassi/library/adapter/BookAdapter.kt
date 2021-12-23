@@ -6,13 +6,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.h.alamassi.library.R
 import com.h.alamassi.library.databinding.ItemBookBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
+import com.h.alamassi.library.fragment.BookDescriptionFragment
 import com.h.alamassi.library.model.Book
 
-class BookAdapter( var activity: Activity, var data: ArrayList<Book>) :
+class BookAdapter( var activity: AppCompatActivity, var data: ArrayList<Book>) :
     RecyclerView.Adapter<BookAdapter.MyViewHolder>() {
     class MyViewHolder(var binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -43,8 +45,8 @@ class BookAdapter( var activity: Activity, var data: ArrayList<Book>) :
             bundle.putInt("book_id", (currentBook.id ?: -1).toInt())
             activity.run {
                 bundle.putInt("book_id", (currentBook.id ?: -1).toInt())
-//                supportFragmentManager.beginTransaction()
-//                        .replace(R.id.fragment_container, BookDescriptionFragment::class.java).commit()
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, BookDescriptionFragment::class.java,bundle).commit()
             }
         }
         holder.binding.ivImageBook.setImageURI(Uri.parse(currentBook.image))

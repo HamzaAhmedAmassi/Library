@@ -24,18 +24,18 @@ class BookDescriptionFragment : Fragment() {
         bookDescriptionBinding = FragmentBookDescriptionBinding.inflate(inflater, container, false)
         return bookDescriptionBinding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bookId = arguments?.getLong("book_id")?:-1
-        if (bookId == -1L){
+        val bookId = arguments?.getLong("book_id") ?: -1
+        if (bookId == -1L) {
             return
-        }else{
-
+        } else {
             bookDescriptionBinding.ibEdit.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putLong("book_id",bookId)
+                bundle.putLong("book_id", bookId)
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, BookEditFragment::class.java,bundle).commit()
+                    .replace(R.id.fragment_container, BookEditFragment::class.java, bundle).commit()
             }
         }
 

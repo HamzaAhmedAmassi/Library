@@ -1,18 +1,20 @@
 package com.h.alamassi.library.fragment
 
-import android.Manifest
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.h.alamassi.library.R
+import com.h.alamassi.library.SignUpActivity
 import com.h.alamassi.library.databinding.FragmentCreateCategoryBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
 import com.h.alamassi.library.model.Category
@@ -21,12 +23,14 @@ import com.h.alamassi.library.model.Category
 class CreateCategoryFragment : Fragment() {
 
     companion object {
-        const val IMAGE_REQUEST_CODE = 101
+        private const val TAG = "CreateCategoryFragment"
+
+        const val IMAGE_REQUEST_CODE = 102
     }
 
     lateinit var databaseHelper: DatabaseHelper
     lateinit var createCategoryBinding: FragmentCreateCategoryBinding
-    private var imageURI: String = ""
+    private var imagePath: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,9 +83,16 @@ class CreateCategoryFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            createCategoryBinding.ivCategoryImage.setImageURI(data.data)
-            imageURI = data.data.toString()
+        if (requestCode == IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            if (data.data != null) {
+                val split: Array<String> = data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
+                val filePath = split[1] //assign it to a string(your choice).
+                val bm = BitmapFactory.decodeFile(filePath)
+                createCategoryBinding.ivCategoryImage.setImageBitmap(bm)
+
+                imagePath = filePath
+                Log.d(TAG, "onActivityResult: imagePath $imagePath")
+            }
         }
     }
 
@@ -91,7 +102,7 @@ class CreateCategoryFragment : Fragment() {
         if (name.isEmpty()) {
             Toast.makeText(requireContext(), "Invalid data", Toast.LENGTH_SHORT).show()
         } else {
-            val result = databaseHelper.createCategory(Category(name, imageURI))
+            val result = databaseHelper.createCategory(Category(name, imagePath))
             if (result != -1L) {
                 Toast.makeText(
                     requireContext(),

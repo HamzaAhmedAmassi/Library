@@ -3,7 +3,9 @@ package com.h.alamassi.library
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -15,12 +17,13 @@ import com.h.alamassi.library.model.User
 
 class SignUpActivity : AppCompatActivity() {
     companion object {
+        private const val TAG = "SignUpActivity"
         const val IMAGE_REQUEST_CODE = 101
     }
 
     private lateinit var databaseHelper: DatabaseHelper
     private lateinit var sinUpBinding: ActivitySignUpBinding
-    private var imageURI: String = ""
+    private var imagePath: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +63,7 @@ class SignUpActivity : AppCompatActivity() {
         intent.type = "image/*"
         startActivityForResult(
             intent,
-            CreateCategoryFragment.IMAGE_REQUEST_CODE
+            IMAGE_REQUEST_CODE
         )
     }
 
@@ -79,7 +82,7 @@ class SignUpActivity : AppCompatActivity() {
             /*val user = databaseHelper.authUser(username, password)
         if (user == null) {*/
             //Create New User
-            val newUser = User(username, password, "")
+            val newUser = User(username, password, imagePath)
             val result = databaseHelper.createUser(newUser)
             if (result != -1L) {
                 Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
@@ -101,6 +104,21 @@ class SignUpActivity : AppCompatActivity() {
         }*/
         } else {
             Toast.makeText(this, "Must fill", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            if (data.data != null) {
+                val split: Array<String> = data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
+                val filePath = split[1] //assign it to a string(your choice).
+                val bm = BitmapFactory.decodeFile(filePath)
+                sinUpBinding.ivUserPhoto.setImageBitmap(bm)
+
+                imagePath = filePath
+                Log.d(TAG, "onActivityResult: imagePath $imagePath")
+            }
         }
     }
 
