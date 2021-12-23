@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.h.alamassi.library.R
 import com.h.alamassi.library.databinding.FragmentCreateBookBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
 import com.h.alamassi.library.model.Book
@@ -21,7 +22,7 @@ class CreateBookFragment : Fragment() {
 
     lateinit var databaseHelper: DatabaseHelper
     private lateinit var createBookBinding: FragmentCreateBookBinding
-    private var imageURI: String = ""
+    private var imageURI: String? = null
     var categoryId: Long = -1L
 
     override fun onCreateView(
@@ -37,15 +38,15 @@ class CreateBookFragment : Fragment() {
         databaseHelper = DatabaseHelper(requireContext())
 
 
-        categoryId = arguments?.getLong("category_id")?:-1
-        if (categoryId == -1L){
+        categoryId = arguments?.getLong("category_id") ?: -1
+        if (categoryId == -1L) {
 
 
             return
         }
 
         createBookBinding.btnSaveBook.setOnClickListener {
-            createCategory()
+            createBook()
         }
         createBookBinding.fabChooseImage.setOnClickListener {
             chooseImage()
@@ -81,7 +82,7 @@ class CreateBookFragment : Fragment() {
         )
     }
 
-    private fun createCategory() {
+    private fun createBook() {
         val bookName = createBookBinding.txtName.text.toString()
         val bookAuthor = createBookBinding.txtAuthor.text.toString()
         val bookYear = createBookBinding.txtYear.text.toString()
@@ -94,8 +95,6 @@ class CreateBookFragment : Fragment() {
         if (bookName.isEmpty() && bookAuthor.isEmpty() && bookDescription.isEmpty() && bookLanguage.isEmpty() && bookShelf.isEmpty()) {
             Toast.makeText(requireContext(), "Invalid data", Toast.LENGTH_SHORT).show()
         } else {
-
-
             val book = Book(
                 bookName,
                 bookAuthor,
@@ -108,12 +107,17 @@ class CreateBookFragment : Fragment() {
                 bookShelf,
                 bookImage
             )
-
+            if (bookImage == null) {
+                    imageURI = R.drawable.ic_baseline_menu_book_24.toString()
+            }
             val result = databaseHelper.insertBook(book)
             if (result != -1L) {
                 Toast.makeText(requireContext(), "Book Created Successfully", Toast.LENGTH_SHORT)
                     .show()
-
+                val bundle = Bundle()
+                bundle.getString("book_image",imageURI)
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, BooksFragment::class.java,bundle).commit()
             } else {
                 Toast.makeText(
                     requireContext(),

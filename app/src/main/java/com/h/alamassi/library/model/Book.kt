@@ -10,7 +10,7 @@ data class Book(
     var numOfPages: String,
     var numOfCopies: String,
     var shelf: String,
-    var image: String
+    var image: String?
 ) {
     var id: Long? = null
 

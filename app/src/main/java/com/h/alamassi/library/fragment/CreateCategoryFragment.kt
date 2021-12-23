@@ -1,6 +1,5 @@
 package com.h.alamassi.library.fragment
 
-import android.Manifest
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Activity
 import android.content.Intent
@@ -26,7 +25,7 @@ class CreateCategoryFragment : Fragment() {
 
     lateinit var databaseHelper: DatabaseHelper
     lateinit var createCategoryBinding: FragmentCreateCategoryBinding
-    private var imageURI: String = ""
+    private var imageURI: String ?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,6 +91,9 @@ class CreateCategoryFragment : Fragment() {
             Toast.makeText(requireContext(), "Invalid data", Toast.LENGTH_SHORT).show()
         } else {
             val result = databaseHelper.createCategory(Category(name, imageURI))
+            if (imageURI == null){
+                imageURI = R.drawable.ic_baseline_menu_book_24.toString()
+            }
             if (result != -1L) {
                 Toast.makeText(
                     requireContext(),
