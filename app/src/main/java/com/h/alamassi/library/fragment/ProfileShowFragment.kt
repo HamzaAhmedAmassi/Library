@@ -14,9 +14,9 @@ class ProfileShowFragment : Fragment() {
 
     lateinit var databaseHelper: DatabaseHelper
     lateinit var profileShowFragment: FragmentProfileShowBinding
-    val userImage = requireArguments().getString("user_image")
-    val userName = requireArguments().getString("user_name")
-    val userPassword = requireArguments().getString("user_password")
+//    val userImage = requireArguments().getString("user_image")
+//    val userName = requireArguments().getString("user_name")
+//    val userPassword = requireArguments().getString("user_password")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +37,9 @@ class ProfileShowFragment : Fragment() {
         }
         profileShowFragment.ibEdit.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString("user_image", userImage)
-            bundle.putString("user_name", userName)
-            bundle.putString("user_password", userPassword)
+//            bundle.putString("user_image", userImage)
+//            bundle.putString("user_name", userName)
+//            bundle.putString("user_password", userPassword)
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ProfileEditFragment::class.java, bundle).commit()
 
