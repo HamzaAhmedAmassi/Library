@@ -115,8 +115,6 @@ class CreateBookFragment : Fragment() {
             if (result != -1L) {
                 Toast.makeText(requireContext(), "Book Created Successfully", Toast.LENGTH_SHORT)
                     .show()
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, BooksFragment()).commit()
             } else {
                 Toast.makeText(
                     requireContext(),

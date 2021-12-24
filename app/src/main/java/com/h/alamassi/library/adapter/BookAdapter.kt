@@ -12,6 +12,7 @@ import com.h.alamassi.library.R
 import com.h.alamassi.library.databinding.ItemBookBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
 import com.h.alamassi.library.fragment.BookDescriptionFragment
+import com.h.alamassi.library.fragment.BooksFragment
 import com.h.alamassi.library.model.Book
 
 class BookAdapter( var activity: AppCompatActivity, var data: ArrayList<Book>) :
@@ -42,13 +43,14 @@ class BookAdapter( var activity: AppCompatActivity, var data: ArrayList<Book>) :
         val currentBook = data[position]
         holder.binding.root.setOnClickListener {
             val bundle = Bundle()
-            bundle.putInt("book_id", (currentBook.id ?: -1).toInt())
+            bundle.putLong("book_id", currentBook.id ?: -1)
             activity.run {
-                bundle.putInt("book_id", (currentBook.id ?: -1).toInt())
+                bundle.putLong("book_id", currentBook.id ?: -1)
                 supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, BookDescriptionFragment::class.java,bundle).commit()
             }
         }
+
         holder.binding.ivImageBook.setImageURI(Uri.parse(currentBook.image))
         holder.binding.tvBookName.text = data[position].name
         holder.binding.tvAuthor.text = data[position].author
