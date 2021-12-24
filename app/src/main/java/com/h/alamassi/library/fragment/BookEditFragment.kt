@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.h.alamassi.library.R
 import com.h.alamassi.library.databinding.FragmentBookEditBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
 import com.h.alamassi.library.model.Book
@@ -26,10 +25,10 @@ class BookEditFragment : Fragment() {
 
     lateinit var bookEditBinding: FragmentBookEditBinding
     lateinit var databaseHelper: DatabaseHelper
-    var bookId: Long = -1L
-    var categoryId: Long = -1L
-    private var imagePath: String? = null
-    var bookImage: String? = null
+
+    private var bookId: Long = -1L
+    private var categoryId: Long = -1L
+    private var imagePath: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,28 +40,20 @@ class BookEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        databaseHelper = DatabaseHelper(requireContext())
         bookId = arguments?.getLong("book_id", -1)!!
-        categoryId = arguments?.getLong("category_id", -1)!!
-        bookImage = arguments?.getString(
-            "book_image",
-            R.drawable.ic_baseline_menu_book_24.toString()
-        )
+        bookId = arguments?.getLong("category_id", -1)!!
         bookEditBinding.btnSaveBook.setOnClickListener {
             updateBooks()
         }
         bookEditBinding.fabChooseImage.setOnClickListener {
             chooseImage()
         }
-
     }
-
 
     private fun updateBooks() {
 
         val bookId = arguments?.getLong("book_id") ?: -1
-        databaseHelper = DatabaseHelper(requireContext())
-        val books = databaseHelper.getDescriptionBooks(bookId)
-
         val name = bookEditBinding.edName.text.toString()
         val author = bookEditBinding.edAuthor.text.toString()
         val year = bookEditBinding.edYear.text.toString()
@@ -72,6 +63,7 @@ class BookEditFragment : Fragment() {
         val copies = bookEditBinding.edCopies.text.toString()
         val shelf = bookEditBinding.edShelf.text.toString()
         val image = bookEditBinding.ivBookImage.toString()
+
         val book = Book(
             name,
             author,
@@ -84,12 +76,11 @@ class BookEditFragment : Fragment() {
             shelf,
             image
         )
+
         book.id = bookId
         databaseHelper.updateBook(book)
         Toast.makeText(requireContext(), "Edit Successfully", Toast.LENGTH_SHORT).show()
-
     }
-
 
     private fun chooseImage() {
         val galleryPermission = ActivityCompat.checkSelfPermission(
@@ -104,7 +95,7 @@ class BookEditFragment : Fragment() {
             ActivityCompat.requestPermissions(
                 requireContext() as Activity,
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                ProfileEditFragment.IMAGE_REQUEST_CODE
+                IMAGE_REQUEST_CODE
             )
         }
     }
@@ -114,7 +105,7 @@ class BookEditFragment : Fragment() {
         intent.type = "image/*"
         startActivityForResult(
             intent,
-            ProfileEditFragment.IMAGE_REQUEST_CODE
+            IMAGE_REQUEST_CODE
         )
     }
 
@@ -132,5 +123,4 @@ class BookEditFragment : Fragment() {
             }
         }
     }
-
 }

@@ -26,11 +26,10 @@ class ProfileEditFragment : Fragment() {
         private const val TAG = "ProfileEditFragment"
     }
 
-    private var imagePath: String = ""
     lateinit var databaseHelper: DatabaseHelper
     lateinit var profileEditBinding: FragmentProfileEditBinding
+    private var imagePath: String = ""
     var currentUserId = -1
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,11 +41,12 @@ class ProfileEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         databaseHelper = DatabaseHelper(requireContext())
         currentUserId =
-            SharedPreferenceHelper.getInstance(requireContext())!!.getInt("currentUserId", -1) ?: -1
+
+            SharedPreferenceHelper.getInstance(requireContext())!!.getInt("currentUserId", -1)
         if (currentUserId == -1) {
+
             // TODO: 12/14/2021 Logout because no session expired
             val login = Intent(activity, LoginActivity::class.java)
             startActivity(login)
@@ -57,9 +57,7 @@ class ProfileEditFragment : Fragment() {
                 val login = Intent(activity, LoginActivity::class.java)
                 startActivity(login)
             } else {
-
                 //init current user data
-
                 profileEditBinding.btnSaveEditProfile.setOnClickListener {
                     updateProfile()
                 }
@@ -72,16 +70,14 @@ class ProfileEditFragment : Fragment() {
     }
 
     private fun updateProfile() {
-
-
         val name = profileEditBinding.etName.toString()
         val password = profileEditBinding.etPassword.toString()
         val image = profileEditBinding.ivUser.toString()
 
         val user = User(name, password, image)
         user.id = currentUserId
-
         databaseHelper.updateUser(user)
+
         Toast.makeText(requireContext(), "Edit Successfully", Toast.LENGTH_SHORT).show()
 
     }
@@ -128,5 +124,4 @@ class ProfileEditFragment : Fragment() {
             }
         }
     }
-
 }
