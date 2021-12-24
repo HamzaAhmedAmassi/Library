@@ -24,8 +24,8 @@ class ProfileEditFragment : Fragment() {
     private var imageURI: String = ""
     lateinit var databaseHelper: DatabaseHelper
     lateinit var profileEditBinding: FragmentProfileEditBinding
-    val currentUserId = -1
-//        SharedPreferenceHelper.getInstance(requireContext())?.getInt("currentUserId", -1) ?: -1
+    val currentUserId =
+        SharedPreferenceHelper.getInstance(requireContext())?.getInt("currentUserId", -1)
 //    val userImage = requireArguments().getString("user_image")
 //    val userName = requireArguments().getString("user_name")
 //    val userPassword = requireArguments().getString("user_password")
@@ -48,7 +48,7 @@ class ProfileEditFragment : Fragment() {
             val login = Intent(activity, LoginActivity::class.java)
             startActivity(login)
         } else {
-            val currentUser = databaseHelper.getUser(currentUserId.toLong())
+            val currentUser = databaseHelper.getUser(currentUserId!!.toLong())
             if (currentUser == null) {
                 // TODO: 12/14/2021 Logout because no user id found
                 val login = Intent(activity, LoginActivity::class.java)

@@ -1,25 +1,22 @@
 package com.h.alamassi.library.fragment
 
+import CreateBookFragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.h.alamassi.library.MainActivity
 import com.h.alamassi.library.R
 import com.h.alamassi.library.adapter.BookAdapter
 import com.h.alamassi.library.databinding.FragmentBooksBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
-import com.h.alamassi.library.model.Book
 
 class BooksFragment : Fragment() {
 
     lateinit var databaseHelper: DatabaseHelper
     lateinit var booksBinding: FragmentBooksBinding
-val data = ArrayList<Book>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +28,7 @@ val data = ArrayList<Book>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         val categoryId = arguments?.getLong("category_id") ?: -1
+        val categoryId = arguments?.getLong("category_id") ?: -1
 
         // TODO: 12/24/2021 Init databaseHelper object
         databaseHelper = DatabaseHelper(requireContext())
@@ -56,4 +53,3 @@ val data = ArrayList<Book>()
 
     }
 }
-

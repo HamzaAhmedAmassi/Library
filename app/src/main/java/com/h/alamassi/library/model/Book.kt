@@ -12,6 +12,8 @@ data class Book(
     var shelf: String,
     var image: String?
 ) {
+
+
     var id: Long? = null
 
     companion object {

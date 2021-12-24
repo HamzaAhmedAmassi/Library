@@ -65,6 +65,16 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextContrastCheck" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabChooseImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@drawable/ic_baseline_image_24"
+        app:layout_constraintBottom_toBottomOf="@+id/ivUserPhoto"
+        app:layout_constraintEnd_toEndOf="@+id/ivUserPhoto"
+        app:layout_constraintStart_toEndOf="@+id/ivUserPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/ivUserPhoto" />
 
     <ImageView
         android:id="@+id/ivUserPhoto"
@@ -76,17 +86,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_person_24"
-        />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabChooseImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@drawable/ic_baseline_image_24"
-        app:layout_constraintBottom_toBottomOf="@+id/ivUserPhoto"
-        app:layout_constraintEnd_toEndOf="@+id/ivUserPhoto"
-        app:layout_constraintStart_toEndOf="@+id/ivUserPhoto"
-        app:layout_constraintTop_toBottomOf="@+id/ivUserPhoto" />
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="83dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

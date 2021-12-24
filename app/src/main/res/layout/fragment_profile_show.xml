@@ -42,7 +42,7 @@
         android:layout_marginTop="16dp"
         android:inputType="textPersonName"
         android:paddingHorizontal="8dp"
-        android:text="Hamza Amassing"
+        android:text="Hamza Amassi"
         android:backgroundTint="@color/black"
         android:enabled="false"
         android:textColor="@color/black"

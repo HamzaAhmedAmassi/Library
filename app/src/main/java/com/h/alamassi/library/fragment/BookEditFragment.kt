@@ -68,13 +68,8 @@ class BookEditFragment : Fragment() {
             val pages = bookEditBinding.txtPages.toString()
             val copies = bookEditBinding.txtCopies.toString()
             val shelf = bookEditBinding.txtShelf.toString()
+            val image = imageURI!!
 
-            var image: String = bookEditBinding.ivBookImage.toString()
-            if (image == null) {
-                image = bookImage!!
-            } else {
-                image = imageURI!!
-            }
             databaseHelper.updateBook(
                 Book(
                     name,

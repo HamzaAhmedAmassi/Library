@@ -55,14 +55,14 @@ class DatabaseHelper(context: Context) :
         return result != -1
     }
 
-    fun deleteUser(userId: Int): Boolean {
-        val result = writableDatabase.delete(
-            User.TABLE_NAME,
-            "${User.COL_ID} =?",
-            arrayOf(userId.toString())
-        )
-        return result != -1
-    }
+//    fun deleteUser(userId: Int): Boolean {
+//        val result = writableDatabase.delete(
+//            User.TABLE_NAME,
+//            "${User.COL_ID} =?",
+//            arrayOf(userId.toString())
+//        )
+//        return result != -1
+//    }
 
     @SuppressLint("Recycle")
     fun getUser(userId: Long): User? {
@@ -90,32 +90,32 @@ class DatabaseHelper(context: Context) :
         return user
     }
 
-    @SuppressLint("Recycle")
-    fun getAllUsers(): MutableList<User> {
-        val query = readableDatabase.rawQuery(
-            "SELECT * FROM ${User.TABLE_NAME}", null
-        )
-        val idIndex = query.getColumnIndex(User.COL_ID)
-        val nameIndex = query.getColumnIndex(User.COL_NAME)
-        val passwordIndex = query.getColumnIndex(User.COL_PASSWORD)
-        val imageIndex = query.getColumnIndex(User.COL_IMAGE)
-
-        query.moveToFirst()
-        val users: MutableList<User> = mutableListOf()
-
-        while (!query.isAfterLast) {
-            val id = query.getInt(idIndex)
-            val name = query.getString(nameIndex)
-            val password = query.getString(passwordIndex)
-            val image = query.getString(imageIndex)
-
-            val user = User(name, password, image)
-            user.id = id
-            users.add(user)
-            query.moveToNext()
-        }
-        return users
-    }
+//    @SuppressLint("Recycle")
+//    fun getAllUsers(): MutableList<User> {
+//        val query = readableDatabase.rawQuery(
+//            "SELECT * FROM ${User.TABLE_NAME}", null
+//        )
+//        val idIndex = query.getColumnIndex(User.COL_ID)
+//        val nameIndex = query.getColumnIndex(User.COL_NAME)
+//        val passwordIndex = query.getColumnIndex(User.COL_PASSWORD)
+//        val imageIndex = query.getColumnIndex(User.COL_IMAGE)
+//
+//        query.moveToFirst()
+//        val users: MutableList<User> = mutableListOf()
+//
+//        while (!query.isAfterLast) {
+//            val id = query.getInt(idIndex)
+//            val name = query.getString(nameIndex)
+//            val password = query.getString(passwordIndex)
+//            val image = query.getString(imageIndex)
+//
+//            val user = User(name, password, image)
+//            user.id = id
+//            users.add(user)
+//            query.moveToNext()
+//        }
+//        return users
+//    }
 
     @SuppressLint("Recycle")
     fun authUser(nameValue: String, passwordValue: String): User? {
@@ -244,6 +244,52 @@ class DatabaseHelper(context: Context) :
             query.moveToNext()
         }
         return books
+    }
+
+    @SuppressLint("Recycle")
+    fun getDescriptionBooks(bookId: Long): Book {
+        val query = readableDatabase.rawQuery(
+            "SELECT * FROM ${Book.TABLE_NAME} WHERE ${Book.COL_CATEGORY_ID} = $bookId ",null)
+        val idIndex = query.getColumnIndex(Book.COL_ID)
+        val nameIndex = query.getColumnIndex(Book.COL_NAME)
+        val authorIndex = query.getColumnIndex(Book.COL_AUTHOR)
+        val categoryIdIndex = query.getColumnIndex(Book.COL_CATEGORY_ID)
+        val descriptionIndex = query.getColumnIndex(Book.COL_DESCRIPTION)
+        val yearIndex = query.getColumnIndex(Book.COL_YEAR)
+        val shelfIndex = query.getColumnIndex(Book.COL_SHELF)
+        val languageIndex = query.getColumnIndex(Book.COL_LANGUAGE)
+        val imageIndex = query.getColumnIndex(User.COL_IMAGE)
+        val numberOfCopiesIndex = query.getColumnIndex(Book.COL_NUMBER_OF_COPIES)
+        val numberOfPagesIndex = query.getColumnIndex(Book.COL_NUMBER_OF_PAGES)
+
+
+            val id = query.getLong(idIndex)
+            val name = query.getString(nameIndex)
+            val author = query.getString(authorIndex)
+            val year = query.getString(yearIndex)
+            val categoryId = query.getLong(categoryIdIndex)
+            val description = query.getString(descriptionIndex)
+            val language = query.getString(languageIndex)
+            val numberOfPages = query.getString(numberOfPagesIndex)
+            val numberOfCopies = query.getString(numberOfCopiesIndex)
+            val shelf = query.getString(shelfIndex)
+            val image = query.getString(imageIndex)
+
+
+            val book = Book(
+                name,
+                author,
+                year,
+                categoryId,
+                description,
+                language,
+                numberOfPages,
+                numberOfCopies,
+                shelf,
+                image
+            )
+            book.id = id
+        return book
     }
 
 

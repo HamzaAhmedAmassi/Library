@@ -54,7 +54,8 @@ class BookAdapter( var activity: AppCompatActivity, var data: ArrayList<Book>) :
         holder.binding.tvAuthor.text = data[position].author
         holder.binding.tvCategory.text = data[position].categoryId.toString()
         holder.binding.tvShelf.text = data[position].name
-        holder.binding.ibFavorite.setOnClickListener { }
+        holder.binding.ibFavorite.setOnClickListener {}
+
     }
 
     override fun getItemCount(): Int {

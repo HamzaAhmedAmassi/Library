@@ -1,4 +1,4 @@
-package com.h.alamassi.library.fragment
+import com.h.alamassi.library.fragment.BooksFragment
 
 import android.Manifest
 import android.content.Intent
@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import com.h.alamassi.library.R
 import com.h.alamassi.library.databinding.FragmentCreateBookBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
+import com.h.alamassi.library.fragment.CategoriesFragment
 import com.h.alamassi.library.model.Book
 
 class CreateBookFragment : Fragment() {
@@ -114,7 +115,8 @@ class CreateBookFragment : Fragment() {
             if (result != -1L) {
                 Toast.makeText(requireContext(), "Book Created Successfully", Toast.LENGTH_SHORT)
                     .show()
-
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, BooksFragment()).commit()
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -130,16 +132,19 @@ class CreateBookFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
-            if (data.data != null) {
-                val split: Array<String> =
-                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
-                val filePath = split[1] //assign it to a string(your choice).
-                val bm = BitmapFactory.decodeFile(filePath)
-                createBookBinding.ivBookImage.setImageBitmap(bm)
 
-                imagePath = filePath
-                Log.d(TAG, "onActivityResult: imagePath $imagePath")
-            }
+            createBookBinding.ivBookImage.setImageURI(data.data)
+            imagePath = data.data.toString()
+//            if (data.data != null) {
+//                val split: Array<String> =
+//                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
+//                val filePath = split[1] //assign it to a string(your choice).
+//                val bm = BitmapFactory.decodeFile(filePath)
+//                createBookBinding.ivBookImage.setImageBitmap(bm)
+//
+//                imagePath = filePath
+//                Log.d(TAG, "onActivityResult: imagePath $imagePath")
+//            }
         }
     }
 

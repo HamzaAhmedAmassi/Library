@@ -71,13 +71,12 @@ class SignUpActivity : AppCompatActivity() {
     private fun onClickRegister() {
         val username = sinUpBinding.txtUserName.text.toString()
         val password = sinUpBinding.txtPassword.text.toString()
+        val image = imagePath
         if (username.isNotEmpty() && password.isNotEmpty()) {
-            var image = imagePath
-
             /*val user = databaseHelper.authUser(username, password)
         if (user == null) {*/
             //Create New User
-            val newUser = User(username, password, imagePath)
+            val newUser = User(username, password, image)
             val result = databaseHelper.createUser(newUser)
             if (result != -1L) {
                 Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show()
@@ -110,11 +109,11 @@ class SignUpActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             if (data.data != null) {
-                val split: Array<String> = data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
+                val split: Array<String> =
+                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
                 val filePath = split[1] //assign it to a string(your choice).
                 val bm = BitmapFactory.decodeFile(filePath)
                 sinUpBinding.ivUserPhoto.setImageBitmap(bm)
-
                 imagePath = filePath
                 Log.d(TAG, "onActivityResult: imagePath $imagePath")
             }
