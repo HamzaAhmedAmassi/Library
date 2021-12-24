@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -100,15 +101,27 @@ class ProfileEditFragment : Fragment() {
         if (currentUserId == -1) {
             return
         } else {
-            val name = profileEditBinding.txtName.toString()
-            val password = profileEditBinding.txtPassword.toString()
-            val image = imageURI
-            databaseHelper.updateUser(
-                User(
-                    name,
-                    password, image
+            val userId = arguments?.getLong("user_id") ?: -1
+            if (userId == -1L) {
+                Toast.makeText(requireContext(), "Cannot Edit", Toast.LENGTH_SHORT).show()
+                return
+            } else {
+                val user = databaseHelper.getUser(userId)
+                user!!.name = profileEditBinding.etName.toString()
+                user.password = profileEditBinding.etPassword.toString()
+                user.image = profileEditBinding.imageView.toString()
+                val name = user.name
+                val password = user.password
+                val image = user.image
+                databaseHelper.updateUser(
+                    User(
+                        name,
+                        password, image
+                    )
                 )
-            )
+                Toast.makeText(requireContext(), "Edit Successfully", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 

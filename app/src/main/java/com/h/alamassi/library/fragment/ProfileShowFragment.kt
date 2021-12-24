@@ -30,21 +30,13 @@ class ProfileShowFragment : Fragment() {
         if (userId == -1L) {
         } else {
             val user = databaseHelper.getUser(userId)
-            val image =requireArguments ().getString("user_image")!!
-
-//            profileShowFragment.imageView.toString() = image
-//            val name = requireArguments().getString("user_name")!!
-//            profileShowFragment.etName.toString() = name
-//            val password = requireArguments().getString("user_password")!!
-//            profileShowFragment.etPassword.toString() = password
-
+//             profileShowFragment.etName.toString() = user!!.name
+//            user.password = profileShowFragment.etPassword.toString()
+//            user.image = profileShowFragment.imageView.toString()
 
         }
         profileShowFragment.ibEdit.setOnClickListener {
             val bundle = Bundle()
-//            bundle.putString("user_image", userImage)
-//            bundle.putString("user_name", userName)
-//            bundle.putString("user_password", userPassword)
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, ProfileEditFragment::class.java, bundle).commit()
 
