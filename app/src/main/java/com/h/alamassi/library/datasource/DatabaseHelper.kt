@@ -1,5 +1,6 @@
 package com.h.alamassi.library.datasource
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -63,6 +64,7 @@ class DatabaseHelper(context: Context) :
         return result != -1
     }
 
+    @SuppressLint("Recycle")
     fun getUser(userId: Long): User? {
         val query = readableDatabase.rawQuery(
             "SELECT * FROM ${User.TABLE_NAME} WHERE ${User.COL_ID} =? LIMIT 1",
@@ -88,6 +90,7 @@ class DatabaseHelper(context: Context) :
         return user
     }
 
+    @SuppressLint("Recycle")
     fun getAllUsers(): MutableList<User> {
         val query = readableDatabase.rawQuery(
             "SELECT * FROM ${User.TABLE_NAME}", null
@@ -114,6 +117,7 @@ class DatabaseHelper(context: Context) :
         return users
     }
 
+    @SuppressLint("Recycle")
     fun authUser(nameValue: String, passwordValue: String): User? {
         val query = readableDatabase.rawQuery(
             "SELECT * FROM ${User.TABLE_NAME} WHERE ${User.COL_NAME} =? AND ${User.COL_PASSWORD}=? LIMIT 1",
@@ -188,6 +192,7 @@ class DatabaseHelper(context: Context) :
     }
 
 
+    @SuppressLint("Recycle")
     fun getCategoryBooks(categoryId: Long): ArrayList<Book> {
         val query = readableDatabase.rawQuery(
             "SELECT * FROM ${Book.TABLE_NAME} WHERE ${Book.COL_CATEGORY_ID} = ?",
@@ -241,43 +246,27 @@ class DatabaseHelper(context: Context) :
         return books
     }
 
-//    fun getDescriptionBooks(bookId: Long,book: Book):Long {
-//        val contentValues = ContentValues()
-//        contentValues.put(Book.COL_ID, bookId)
-//        contentValues.put(Book.COL_NAME, book.name)
-//        contentValues.put(Book.COL_AUTHOR, book.author)
-//        contentValues.put(Book.COL_CATEGORY_ID, book.categoryId)
-//        contentValues.put(Book.COL_DESCRIPTION, book.description)
-//        contentValues.put(Book.COL_LANGUAGE, book.language)
-//        contentValues.put(Book.COL_NUMBER_OF_COPIES, book.numOfCopies)
-//        contentValues.put(Book.COL_NUMBER_OF_PAGES, book.numOfPages)
-//        contentValues.put(Book.COL_SHELF, book.shelf)
-//        contentValues.put(Book.COL_YEAR, book.year)
-//        contentValues.put(Book.COL_IMAGE, book.image ?: "")
-//        return writableDatabase.(Book.TABLE_NAME, null, contentValues)
-//    }
 
     fun createCategory(category: Category): Long {
         val contentValues = ContentValues()
         contentValues.put(Category.COL_NAME, category.name)
         contentValues.put(Category.COL_IMAGE, category.image ?: "")
-        val result = writableDatabase.insert(Category.TABLE_NAME, null, contentValues)
-        return result
+        return writableDatabase.insert(Category.TABLE_NAME, null, contentValues)
     }
 
-    fun updateCategory(category: Category): Boolean {
-        val contentValues = ContentValues()
-        contentValues.put(Category.COL_NAME, category.name)
-        contentValues.put(Category.COL_IMAGE, category.image ?: "")
-
-        val result = writableDatabase.update(
-            Category.TABLE_NAME,
-            null,
-            "${Category.COL_ID} =?",
-            arrayOf(category.id.toString())
-        )
-        return result != -1
-    }
+//    fun updateCategory(category: Category): Boolean {
+//        val contentValues = ContentValues()
+//        contentValues.put(Category.COL_NAME, category.name)
+//        contentValues.put(Category.COL_IMAGE, category.image ?: "")
+//
+//        val result = writableDatabase.update(
+//            Category.TABLE_NAME,
+//            null,
+//            "${Category.COL_ID} =?",
+//            arrayOf(category.id.toString())
+//        )
+//        return result != -1
+//    }
 
     fun deleteCategory(categoryId: Int): Boolean {
         val result = writableDatabase.delete(
@@ -288,28 +277,29 @@ class DatabaseHelper(context: Context) :
         return result != -1
     }
 
-    fun getCategory(categoryId: Int): Category? {
-        val query = readableDatabase.rawQuery(
-            "SELECT * FROM ${Category.TABLE_NAME} WHERE ${Category.COL_ID} =?",
-            arrayOf(categoryId.toString())
-        )
-        val idIndex = query.getColumnIndex(Category.COL_ID)
-        val nameIndex = query.getColumnIndex(Category.COL_NAME)
-        val imageIndex = query.getColumnIndex(Category.COL_IMAGE)
-
-        query.moveToFirst()
-        var category: Category? = null
-
-        while (!query.isAfterLast) {
-            val id = query.getInt(idIndex)
-            val name = query.getString(nameIndex)
-            val image = query.getString(imageIndex)
-            category = Category(name, image)
-            category.id = id
-            query.moveToNext()
-        }
-        return category
-    }
+//    @SuppressLint("Recycle")
+//    fun getCategory(categoryId: Int): Category? {
+//        val query = readableDatabase.rawQuery(
+//            "SELECT * FROM ${Category.TABLE_NAME} WHERE ${Category.COL_ID} =?",
+//            arrayOf(categoryId.toString())
+//        )
+//        val idIndex = query.getColumnIndex(Category.COL_ID)
+//        val nameIndex = query.getColumnIndex(Category.COL_NAME)
+//        val imageIndex = query.getColumnIndex(Category.COL_IMAGE)
+//
+//        query.moveToFirst()
+//        var category: Category? = null
+//
+//        while (!query.isAfterLast) {
+//            val id = query.getInt(idIndex)
+//            val name = query.getString(nameIndex)
+//            val image = query.getString(imageIndex)
+//            category = Category(name, image)
+//            category.id = id
+//            query.moveToNext()
+//        }
+//        return category
+//    }
 
     fun getAllCategories(): ArrayList<Category> {
         val query = readableDatabase.rawQuery(

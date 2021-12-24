@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import com.h.alamassi.library.R
 import com.h.alamassi.library.databinding.FragmentCreateBookBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
 import com.h.alamassi.library.model.Book
@@ -41,14 +42,14 @@ class CreateBookFragment : Fragment() {
         databaseHelper = DatabaseHelper(requireContext())
 
 
-        categoryId = arguments?.getLong("category_id")?:-1
-        if (categoryId == -1L){
+        categoryId = arguments?.getLong("category_id") ?: -1
+        if (categoryId == -1L) {
             return
         }
 
 
 
-        createBookBinding.btnSaveBook.setOnClickListener {
+        createBookBinding.btnCreateBook.setOnClickListener {
             createBook()
         }
         createBookBinding.fabChooseImage.setOnClickListener {
@@ -121,6 +122,8 @@ class CreateBookFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, BooksFragment()).commit()
         }
     }
 
@@ -128,7 +131,8 @@ class CreateBookFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
             if (data.data != null) {
-                val split: Array<String> = data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
+                val split: Array<String> =
+                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
                 val filePath = split[1] //assign it to a string(your choice).
                 val bm = BitmapFactory.decodeFile(filePath)
                 createBookBinding.ivBookImage.setImageBitmap(bm)

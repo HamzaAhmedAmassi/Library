@@ -18,12 +18,10 @@
 
     <EditText
         android:id="@+id/txtShelf"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="@+id/txtCopies"
         app:layout_constraintTop_toBottomOf="@+id/txtCopies"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -32,19 +30,16 @@
         android:id="@+id/tvShelf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="Shelf"
         app:layout_constraintStart_toStartOf="@+id/tvCopies"
-        app:layout_constraintTop_toBottomOf="@+id/tvCopies" />
+        app:layout_constraintTop_toTopOf="@+id/txtShelf" />
 
     <EditText
         android:id="@+id/txtCopies"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="@+id/txtPages"
         app:layout_constraintTop_toBottomOf="@+id/txtPages"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -53,19 +48,16 @@
         android:id="@+id/tvCopies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Copies"
         app:layout_constraintStart_toStartOf="@+id/tvPages"
-        app:layout_constraintTop_toBottomOf="@+id/tvPages" />
+        app:layout_constraintTop_toTopOf="@+id/txtCopies" />
 
     <EditText
         android:id="@+id/txtPages"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="@+id/txtLanguage"
         app:layout_constraintTop_toBottomOf="@+id/txtLanguage"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -74,16 +66,15 @@
         android:id="@+id/tvPages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Pages"
         app:layout_constraintStart_toStartOf="@+id/tvLanguage"
         app:layout_constraintTop_toBottomOf="@+id/tvLanguage" />
 
     <EditText
         android:id="@+id/txtLanguage"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -95,19 +86,16 @@
         android:id="@+id/tvLanguage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Language"
         app:layout_constraintStart_toStartOf="@+id/tvDescription"
-        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+        app:layout_constraintTop_toTopOf="@+id/txtLanguage" />
 
     <EditText
         android:id="@+id/txtDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="@+id/txt_category"
         app:layout_constraintTop_toBottomOf="@+id/txt_category"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -116,16 +104,14 @@
         android:id="@+id/tvDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="Description"
         app:layout_constraintStart_toStartOf="@+id/tvCategory"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+        app:layout_constraintTop_toTopOf="@+id/txtDescription" />
 
     <EditText
         android:id="@+id/txtYear"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -137,29 +123,26 @@
         android:id="@+id/tvYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Year of release"
         app:layout_constraintStart_toStartOf="@+id/tvAuthor"
-        app:layout_constraintTop_toBottomOf="@+id/tvAuthor" />
+        app:layout_constraintTop_toTopOf="@+id/txtYear" />
 
     <EditText
         android:id="@+id/txtName"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="170dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/txt_category"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -171,19 +154,16 @@
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="Category"
         app:layout_constraintStart_toStartOf="@+id/tvYear"
-        app:layout_constraintTop_toBottomOf="@+id/tvYear" />
+        app:layout_constraintTop_toTopOf="@+id/txt_category" />
 
     <EditText
         android:id="@+id/txtAuthor"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
         app:layout_constraintStart_toStartOf="@+id/txtName"
         app:layout_constraintTop_toBottomOf="@+id/txtName"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -192,23 +172,22 @@
         android:id="@+id/tvAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="Author name"
         app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+        app:layout_constraintTop_toTopOf="@+id/txtAuthor" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Book name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/txtName" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSaveBook"
+        android:id="@+id/btnCreateBook"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

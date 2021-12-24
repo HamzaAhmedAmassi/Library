@@ -7,7 +7,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.h.alamassi.library.databinding.ActivityMainBinding
 import com.h.alamassi.library.datasource.SharedPreferenceHelper
-import com.h.alamassi.library.fragment.*
+import com.h.alamassi.library.fragment.CategoriesFragment
+import com.h.alamassi.library.fragment.FavouritesFragment
+import com.h.alamassi.library.fragment.ProfileShowFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,12 +44,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)
         return super.onCreateOptionsMenu(menu)
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logOutItem -> onClickLogout()
-
+            //R.id.searchItem -> onClickLogout()
         }
         return super.onOptionsItemSelected(item)
     }

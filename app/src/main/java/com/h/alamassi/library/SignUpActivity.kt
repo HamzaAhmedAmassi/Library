@@ -72,15 +72,8 @@ class SignUpActivity : AppCompatActivity() {
         val username = sinUpBinding.txtUserName.text.toString()
         val password = sinUpBinding.txtPassword.text.toString()
         if (username.isNotEmpty() && password.isNotEmpty()) {
-            var image = imageURI
-            if (image == null){
-                image = R.drawable.ic_baseline_person_24.toString()
-            }
+            var image = imagePath
 
-
-//            fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//
-//            }
             /*val user = databaseHelper.authUser(username, password)
         if (user == null) {*/
             //Create New User
