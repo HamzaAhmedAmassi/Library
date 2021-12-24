@@ -1,11 +1,12 @@
 package com.h.alamassi.library.fragment
 
-import CreateBookFragment
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,22 +17,19 @@ import androidx.fragment.app.Fragment
 import com.h.alamassi.library.LoginActivity
 import com.h.alamassi.library.databinding.FragmentProfileEditBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
+import com.h.alamassi.library.datasource.SharedPreferenceHelper
 import com.h.alamassi.library.model.User
 
 class ProfileEditFragment : Fragment() {
     companion object {
         const val IMAGE_REQUEST_CODE = 101
+        private const val TAG = "ProfileEditFragment"
     }
 
-    private var imageURI: String = ""
+    private var imagePath: String = ""
     lateinit var databaseHelper: DatabaseHelper
     lateinit var profileEditBinding: FragmentProfileEditBinding
-    val currentUserId = 1
-    //       SharedPreferenceHelper.getInstance(requireContext())?.getInt("currentUserId", -1)
-
-//    val userImage = requireArguments().getString("user_image")
-//    val userName = requireArguments().getString("user_name")
-//    val userPassword = requireArguments().getString("user_password")
+    var currentUserId = -1
 
 
     override fun onCreateView(
@@ -46,6 +44,8 @@ class ProfileEditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         databaseHelper = DatabaseHelper(requireContext())
+        currentUserId =
+            SharedPreferenceHelper.getInstance(requireContext())!!.getInt("currentUserId", -1) ?: -1
         if (currentUserId == -1) {
             // TODO: 12/14/2021 Logout because no session expired
             val login = Intent(activity, LoginActivity::class.java)
@@ -58,16 +58,32 @@ class ProfileEditFragment : Fragment() {
                 startActivity(login)
             } else {
 
+                //init current user data
+
                 profileEditBinding.btnSaveEditProfile.setOnClickListener {
                     updateProfile()
                 }
                 profileEditBinding.fabChooseImage.setOnClickListener {
                     chooseImage()
                 }
-
             }
 
         }
+    }
+
+    private fun updateProfile() {
+
+
+        val name = profileEditBinding.etName.toString()
+        val password = profileEditBinding.etPassword.toString()
+        val image = profileEditBinding.ivUser.toString()
+
+        val user = User(name, password, image)
+        user.id = currentUserId
+
+        databaseHelper.updateUser(user)
+        Toast.makeText(requireContext(), "Edit Successfully", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun chooseImage() {
@@ -83,7 +99,7 @@ class ProfileEditFragment : Fragment() {
             ActivityCompat.requestPermissions(
                 requireContext() as Activity,
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                CreateBookFragment.IMAGE_REQUEST_CODE
+                IMAGE_REQUEST_CODE
             )
         }
     }
@@ -93,44 +109,23 @@ class ProfileEditFragment : Fragment() {
         intent.type = "image/*"
         startActivityForResult(
             intent,
-            CreateBookFragment.IMAGE_REQUEST_CODE
+            IMAGE_REQUEST_CODE
         )
-    }
-
-    private fun updateProfile() {
-        if (currentUserId == -1) {
-            return
-        } else {
-            val userId = arguments?.getLong("user_id") ?: -1
-            if (userId == -1L) {
-                Toast.makeText(requireContext(), "Cannot Edit", Toast.LENGTH_SHORT).show()
-                return
-            } else {
-                val user = databaseHelper.getUser(userId)
-                user!!.name = profileEditBinding.etName.toString()
-                user.password = profileEditBinding.etPassword.toString()
-                user.image = profileEditBinding.imageView.toString()
-                val name = user.name
-                val password = user.password
-                val image = user.image
-                databaseHelper.updateUser(
-                    User(
-                        name,
-                        password, image
-                    )
-                )
-                Toast.makeText(requireContext(), "Edit Successfully", Toast.LENGTH_SHORT).show()
-            }
-
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            if (data.data != null) {
+                val split: Array<String> =
+                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
+                val filePath = split[1] //assign it to a string(your choice).
+                val bm = BitmapFactory.decodeFile(filePath)
+                profileEditBinding.ivUser.setImageBitmap(bm)
 
-            profileEditBinding.imageView.setImageURI(data.data)
-            imageURI = data.data.toString()
+                imagePath = filePath
+                Log.d(TAG, "onActivityResult: imagePath $imagePath")
+            }
         }
     }
 

@@ -41,8 +41,6 @@ class CreateBookFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         databaseHelper = DatabaseHelper(requireContext())
-
-
         categoryId = arguments?.getLong("category_id") ?: -1
         if (categoryId == -1L) {
             return
@@ -86,15 +84,15 @@ class CreateBookFragment : Fragment() {
     }
 
     private fun createBook() {
-        val bookName = createBookBinding.txtName.text.toString()
-        val bookAuthor = createBookBinding.txtAuthor.text.toString()
-        val bookYear = createBookBinding.txtYear.text.toString()
-        val bookCopies = createBookBinding.txtCopies.text.toString()
+        val bookName = createBookBinding.edName.text.toString()
+        val bookAuthor = createBookBinding.edAuthor.text.toString()
+        val bookYear = createBookBinding.edYear.text.toString()
+        val bookCopies = createBookBinding.edCopies.text.toString()
         val bookImage = imagePath
-        val bookPages = createBookBinding.txtPages.text.toString()
-        val bookDescription = createBookBinding.txtDescription.text.toString()
-        val bookLanguage = createBookBinding.txtLanguage.text.toString()
-        val bookShelf = createBookBinding.txtShelf.text.toString()
+        val bookPages = createBookBinding.edPages.text.toString()
+        val bookDescription = createBookBinding.edDescription.text.toString()
+        val bookLanguage = createBookBinding.edLanguage.text.toString()
+        val bookShelf = createBookBinding.edShelf.text.toString()
         if (bookName.isEmpty() && bookAuthor.isEmpty() && bookDescription.isEmpty() && bookLanguage.isEmpty() && bookShelf.isEmpty()) {
             Toast.makeText(requireContext(), "Invalid data", Toast.LENGTH_SHORT).show()
         } else {
@@ -130,20 +128,16 @@ class CreateBookFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            if (data.data != null) {
+                val split: Array<String> =
+                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
+                val filePath = split[1] //assign it to a string(your choice).
+                val bm = BitmapFactory.decodeFile(filePath)
+                createBookBinding.ivBookImage.setImageBitmap(bm)
 
-            createBookBinding.ivBookImage.setImageURI(data.data)
-            imagePath = data.data.toString()
-
-//            if (data.data != null) {
-//                val split: Array<String> =
-//                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
-//                val filePath = split[1] //assign it to a string(your choice).
-//                val bm = BitmapFactory.decodeFile(filePath)
-//                createBookBinding.ivBookImage.setImageBitmap(bm)
-//
-//                imagePath = filePath
-//                Log.d(TAG, "onActivityResult: imagePath $imagePath")
-//            }
+                imagePath = filePath
+                Log.d(TAG, "onActivityResult: imagePath $imagePath")
+            }
         }
     }
 

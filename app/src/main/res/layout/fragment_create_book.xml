@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txtShelf"
+        android:id="@+id/edShelf"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/txtCopies"
-        app:layout_constraintTop_toBottomOf="@+id/txtCopies"
+        app:layout_constraintStart_toStartOf="@+id/edCopies"
+        app:layout_constraintTop_toBottomOf="@+id/edCopies"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -31,16 +31,16 @@
         android:layout_height="wrap_content"
         android:text="Shelf"
         app:layout_constraintStart_toStartOf="@+id/tvCopies"
-        app:layout_constraintTop_toTopOf="@+id/txtShelf" />
+        app:layout_constraintTop_toTopOf="@+id/edShelf" />
 
     <EditText
-        android:id="@+id/txtCopies"
+        android:id="@+id/edCopies"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/txtPages"
-        app:layout_constraintTop_toBottomOf="@+id/txtPages"
+        app:layout_constraintStart_toStartOf="@+id/edPages"
+        app:layout_constraintTop_toBottomOf="@+id/edPages"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -49,16 +49,16 @@
         android:layout_height="wrap_content"
         android:text="Copies"
         app:layout_constraintStart_toStartOf="@+id/tvPages"
-        app:layout_constraintTop_toTopOf="@+id/txtCopies" />
+        app:layout_constraintTop_toTopOf="@+id/edCopies" />
 
     <EditText
-        android:id="@+id/txtPages"
+        android:id="@+id/edPages"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/txtLanguage"
-        app:layout_constraintTop_toBottomOf="@+id/txtLanguage"
+        app:layout_constraintStart_toStartOf="@+id/edLanguage"
+        app:layout_constraintTop_toBottomOf="@+id/edLanguage"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -67,17 +67,17 @@
         android:layout_height="wrap_content"
         android:text="Pages"
         app:layout_constraintStart_toStartOf="@+id/tvLanguage"
-        app:layout_constraintTop_toTopOf="@+id/txtPages" />
+        app:layout_constraintTop_toTopOf="@+id/edPages" />
 
     <EditText
-        android:id="@+id/txtLanguage"
+        android:id="@+id/edLanguage"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/txtDescription"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescription"
+        app:layout_constraintStart_toStartOf="@+id/edDescription"
+        app:layout_constraintTop_toBottomOf="@+id/edDescription"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -86,16 +86,16 @@
         android:layout_height="wrap_content"
         android:text="Language"
         app:layout_constraintStart_toStartOf="@+id/tvDescription"
-        app:layout_constraintTop_toTopOf="@+id/txtLanguage" />
+        app:layout_constraintTop_toTopOf="@+id/edLanguage" />
 
     <EditText
-        android:id="@+id/txtDescription"
+        android:id="@+id/edDescription"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/txt_category"
-        app:layout_constraintTop_toBottomOf="@+id/txt_category"
+        app:layout_constraintStart_toStartOf="@+id/edCategory"
+        app:layout_constraintTop_toBottomOf="@+id/edCategory"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -104,17 +104,17 @@
         android:layout_height="wrap_content"
         android:text="Description"
         app:layout_constraintStart_toStartOf="@+id/tvCategory"
-        app:layout_constraintTop_toTopOf="@+id/txtDescription" />
+        app:layout_constraintTop_toTopOf="@+id/edDescription" />
 
     <EditText
-        android:id="@+id/txtYear"
+        android:id="@+id/edYear"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/txtAuthor"
-        app:layout_constraintTop_toBottomOf="@+id/txtAuthor"
+        app:layout_constraintStart_toStartOf="@+id/edAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/edAuthor"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -123,10 +123,10 @@
         android:layout_height="wrap_content"
         android:text="Year of release"
         app:layout_constraintStart_toStartOf="@+id/tvAuthor"
-        app:layout_constraintTop_toTopOf="@+id/txtYear" />
+        app:layout_constraintTop_toTopOf="@+id/edYear" />
 
     <EditText
-        android:id="@+id/txtName"
+        android:id="@+id/edName"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="170dp"
@@ -138,14 +138,14 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
-        android:id="@+id/txt_category"
+        android:id="@+id/edCategory"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/txtYear"
-        app:layout_constraintTop_toBottomOf="@+id/txtYear"
+        app:layout_constraintStart_toStartOf="@+id/edYear"
+        app:layout_constraintTop_toBottomOf="@+id/edYear"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -154,16 +154,16 @@
         android:layout_height="wrap_content"
         android:text="Category"
         app:layout_constraintStart_toStartOf="@+id/tvYear"
-        app:layout_constraintTop_toTopOf="@+id/txt_category" />
+        app:layout_constraintTop_toTopOf="@+id/edCategory" />
 
     <EditText
-        android:id="@+id/txtAuthor"
+        android:id="@+id/edAuthor"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/txtName"
-        app:layout_constraintTop_toBottomOf="@+id/txtName"
+        app:layout_constraintStart_toStartOf="@+id/edName"
+        app:layout_constraintTop_toBottomOf="@+id/edName"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -172,7 +172,7 @@
         android:layout_height="wrap_content"
         android:text="Author name"
         app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toTopOf="@+id/txtAuthor" />
+        app:layout_constraintTop_toTopOf="@+id/edAuthor" />
 
     <TextView
         android:id="@+id/tvName"
@@ -181,7 +181,7 @@
         android:layout_marginStart="16dp"
         android:text="Book name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txtName" />
+        app:layout_constraintTop_toTopOf="@+id/edName" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnCreateBook"

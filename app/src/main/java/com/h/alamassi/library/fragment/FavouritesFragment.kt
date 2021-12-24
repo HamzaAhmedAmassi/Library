@@ -30,6 +30,7 @@ companion object{
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        databaseHelper = DatabaseHelper(requireContext())
         val favourites = FavouritesAdapter(requireContext() as MainActivity, data)
         favoriteBinding.rvFavourites.layoutManager = LinearLayoutManager(requireContext())
         favoriteBinding.rvFavourites.layoutManager = LinearLayoutManager(requireContext())

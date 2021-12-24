@@ -4,10 +4,13 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.h.alamassi.library.R
@@ -25,7 +28,7 @@ class BookEditFragment : Fragment() {
     lateinit var databaseHelper: DatabaseHelper
     var bookId: Long = -1L
     var categoryId: Long = -1L
-    private var imageURI: String? = null
+    private var imagePath: String? = null
     var bookImage: String? = null
 
     override fun onCreateView(
@@ -55,36 +58,38 @@ class BookEditFragment : Fragment() {
 
 
     private fun updateBooks() {
-        if (bookId == -1L) {
-            return
-        } else {
-            val id = bookId
-            val name = bookEditBinding.txtName.toString()
-            val author = bookEditBinding.txtAuthor.toString()
-            val year = bookEditBinding.txtYear.toString()
-            val categoryId = categoryId
-            val description = bookEditBinding.txtDescription.toString()
-            val language = bookEditBinding.txtLanguage.toString()
-            val pages = bookEditBinding.txtPages.toString()
-            val copies = bookEditBinding.txtCopies.toString()
-            val shelf = bookEditBinding.txtShelf.toString()
-            val image = imageURI!!
 
-            databaseHelper.updateBook(
-                Book(
-                    name,
-                    author,
-                    year,
-                    categoryId,
-                    description,
-                    language,
-                    pages,
-                    copies,
-                    shelf, image
-                )
-            )
-        }
+        val bookId = arguments?.getLong("book_id") ?: -1
+        databaseHelper = DatabaseHelper(requireContext())
+        val books = databaseHelper.getDescriptionBooks(bookId)
+
+        val name = bookEditBinding.edName.text.toString()
+        val author = bookEditBinding.edAuthor.text.toString()
+        val year = bookEditBinding.edYear.text.toString()
+        val description = bookEditBinding.edDescription.text.toString()
+        val language = bookEditBinding.edLanguage.text.toString()
+        val pages = bookEditBinding.edPages.text.toString()
+        val copies = bookEditBinding.edCopies.text.toString()
+        val shelf = bookEditBinding.edShelf.text.toString()
+        val image = bookEditBinding.ivBookImage.toString()
+        val book = Book(
+            name,
+            author,
+            year,
+            categoryId,
+            description,
+            language,
+            pages,
+            copies,
+            shelf,
+            image
+        )
+        book.id = bookId
+        databaseHelper.updateBook(book)
+        Toast.makeText(requireContext(), "Edit Successfully", Toast.LENGTH_SHORT).show()
+
     }
+
 
     private fun chooseImage() {
         val galleryPermission = ActivityCompat.checkSelfPermission(
@@ -99,7 +104,7 @@ class BookEditFragment : Fragment() {
             ActivityCompat.requestPermissions(
                 requireContext() as Activity,
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                CreateBookFragment.IMAGE_REQUEST_CODE
+                ProfileEditFragment.IMAGE_REQUEST_CODE
             )
         }
     }
@@ -109,8 +114,23 @@ class BookEditFragment : Fragment() {
         intent.type = "image/*"
         startActivityForResult(
             intent,
-            CreateBookFragment.IMAGE_REQUEST_CODE
+            ProfileEditFragment.IMAGE_REQUEST_CODE
         )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ProfileEditFragment.IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
+            if (data.data != null) {
+                val split: Array<String> =
+                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
+                val filePath = split[1] //assign it to a string(your choice).
+                val bm = BitmapFactory.decodeFile(filePath)
+                bookEditBinding.ivBookImage.setImageBitmap(bm)
+
+                imagePath = filePath
+            }
+        }
     }
 
 }

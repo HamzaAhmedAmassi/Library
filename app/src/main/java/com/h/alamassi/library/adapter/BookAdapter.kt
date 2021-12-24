@@ -1,13 +1,17 @@
 package com.h.alamassi.library.adapter
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.h.alamassi.library.R
+import com.h.alamassi.library.SignUpActivity
 import com.h.alamassi.library.databinding.ItemBookBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
 import com.h.alamassi.library.fragment.BookDescriptionFragment
@@ -60,4 +64,5 @@ class BookAdapter(var activity: AppCompatActivity, var data: ArrayList<Book>) :
     override fun getItemCount(): Int {
         return data.size
     }
+
 }
