@@ -86,6 +86,7 @@ class CreateCategoryFragment : Fragment() {
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
             createCategoryBinding.ivCategoryImage.setImageURI(data.data)
             imagePath = data.data.toString()
+
 //            if (data.data != null) {
 //                val split: Array<String> = data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.
 //                val filePath = split[1] //assign it to a string(your choice).

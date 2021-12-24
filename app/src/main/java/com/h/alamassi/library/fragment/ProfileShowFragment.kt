@@ -31,6 +31,7 @@ class ProfileShowFragment : Fragment() {
         } else {
             val user = databaseHelper.getUser(userId)
             val image =requireArguments ().getString("user_image")!!
+
 //            profileShowFragment.imageView.toString() = image
 //            val name = requireArguments().getString("user_name")!!
 //            profileShowFragment.etName.toString() = name

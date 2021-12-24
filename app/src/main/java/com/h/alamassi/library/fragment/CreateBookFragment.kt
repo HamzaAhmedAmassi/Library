@@ -133,6 +133,7 @@ class CreateBookFragment : Fragment() {
 
             createBookBinding.ivBookImage.setImageURI(data.data)
             imagePath = data.data.toString()
+
 //            if (data.data != null) {
 //                val split: Array<String> =
 //                    data.data!!.path!!.split(":".toRegex()).toTypedArray() //split the path.

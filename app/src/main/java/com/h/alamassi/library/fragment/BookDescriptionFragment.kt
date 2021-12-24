@@ -42,7 +42,7 @@ class BookDescriptionFragment : Fragment() {
 
             bookDescriptionBinding.ibEdit.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putLong("book_description", bookId)
+                bundle.putLong("book_id", bookId)
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, BookEditFragment::class.java, bundle).commit()
             }

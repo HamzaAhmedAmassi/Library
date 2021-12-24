@@ -1,5 +1,6 @@
 package com.h.alamassi.library.fragment
 
+import CreateBookFragment
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -8,12 +9,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.h.alamassi.library.LoginActivity
 import com.h.alamassi.library.databinding.FragmentProfileEditBinding
 import com.h.alamassi.library.datasource.DatabaseHelper
-import com.h.alamassi.library.datasource.SharedPreferenceHelper
 import com.h.alamassi.library.model.User
 
 class ProfileEditFragment : Fragment() {
@@ -24,8 +25,9 @@ class ProfileEditFragment : Fragment() {
     private var imageURI: String = ""
     lateinit var databaseHelper: DatabaseHelper
     lateinit var profileEditBinding: FragmentProfileEditBinding
-    val currentUserId =
-        SharedPreferenceHelper.getInstance(requireContext())?.getInt("currentUserId", -1)
+    val currentUserId = 1
+    //       SharedPreferenceHelper.getInstance(requireContext())?.getInt("currentUserId", -1)
+
 //    val userImage = requireArguments().getString("user_image")
 //    val userName = requireArguments().getString("user_name")
 //    val userPassword = requireArguments().getString("user_password")
@@ -48,7 +50,7 @@ class ProfileEditFragment : Fragment() {
             val login = Intent(activity, LoginActivity::class.java)
             startActivity(login)
         } else {
-            val currentUser = databaseHelper.getUser(currentUserId!!.toLong())
+            val currentUser = databaseHelper.getUser(currentUserId.toLong())
             if (currentUser == null) {
                 // TODO: 12/14/2021 Logout because no user id found
                 val login = Intent(activity, LoginActivity::class.java)
@@ -99,16 +101,24 @@ class ProfileEditFragment : Fragment() {
             return
         } else {
             val name = profileEditBinding.txtName.toString()
-            val author = profileEditBinding.txtPassword.toString()
+            val password = profileEditBinding.txtPassword.toString()
             val image = imageURI
             databaseHelper.updateUser(
                 User(
                     name,
-                    author, image
+                    password, image
                 )
             )
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
+
+            profileEditBinding.imageView.setImageURI(data.data)
+            imageURI = data.data.toString()
+        }
+    }
 
 }
